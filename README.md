@@ -1,2 +1,2 @@
-# Blogging-time
+# Bloging-time
  Bloging webiste
