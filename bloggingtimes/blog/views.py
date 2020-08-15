@@ -8,5 +8,11 @@ from django.views.generic import ListView, DetailView, View
 from django.shortcuts import redirect
 from django.utils import timezone
 from django.views.decorators.csrf import csrf_exempt
-def home(request):
-    return render(request,'index.html')
+from .models import Post
+class home(View):
+    def get(self, *args, **kwargs):
+        post=Post.objects.order_by('-date_posted')
+        context = {
+            'blogs': post
+        }
+        return render(self.request, "index.html", context)
