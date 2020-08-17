@@ -69,35 +69,35 @@
         
           <!-- Default register chutyapa-->
             
-
-          <form class="text-center border border-light p-5">
+          
+          <form method = "post" action = 'registerRender' class="text-center border border-light p-5">{% csrf_token %}
             <div>
               <h3> Register Here</h3>
             </div>
             <div class="row" style="margin-top:30px;">
                 <span class="card-text">First Name</span>
-                    <input type="text" id="materialRegisterFormFirstName" class="form-control">                       
+                    <input type="text" name = "firstName" id="materialRegisterFormFirstName" class="form-control">                       
                       <!-- <label for="materialRegisterFormFirstName">First name</label> -->
                </div> 
                <div class="row" style="margin-top:30px;">
                 <span class="card-text">Last name</span>
-                    <input type="email" id="materialRegisterFormLastName" class="form-control">
+                    <input type="text" name = "lastName" id="materialRegisterFormLastName" class="form-control">
                     <!-- <label for="materialRegisterFormLastName">Last name</label> -->
                 </div>
                 <div class="row" style="margin-top:30px;">
                     <span class="card-text" >E-mail</span>
-                    <input type="email" id="materialRegisterFormEmail" class="form-control">
+                    <input type="email" name = "email" id="materialRegisterFormEmail" class="form-control">
                     <!-- <label for="materialRegisterFormEmail">E-mail</label> -->
                 </div>
                 <div class="row" style="margin-top:30px;">
                     <span class="card-text" style="margin-bottom: 0px;">Password</span>
-                    <input type="password" id="materialRegisterFormPassword" class="form-control" aria-describedby="materialRegisterFormPasswordHelpBlock">
+                    <input type="password" name = "password" id="materialRegisterFormPassword" class="form-control" aria-describedby="materialRegisterFormPasswordHelpBlock">
                     <!-- <label for="materialRegisterFormPassword">Password</label> -->
                 </div>
             
                 <div class="row" style="margin-top:30px;">
                     <span class="card-text" style="margin-bottom: 0px;">Phone number</span>
-                    <input type="password" id="materialRegisterFormPhone" class="form-control" aria-describedby="materialRegisterFormPhoneHelpBlock">
+                    <input type="text" name = "phone" id="materialRegisterFormPhone" class="form-control" aria-describedby="materialRegisterFormPhoneHelpBlock">
                     <!-- <label for="materialRegisterFormPhone">Phone number</label> -->
                 </div>
                 <div class="row">
@@ -113,7 +113,9 @@
                     
                         <!-- <button class="book-a-table text-center" type="submit">Sign in</button> -->
             <ul class="nav-menu d-none d-lg-block"> 
-              <p class="book-a-table text-center"><a href="#book-a-table">Register</a></p>
+              <input type = 'Submit'>
+              <!--<p class="book-a-table text-center"><a href="users/registerRender">Register</a></p> -->
+           
             </ul>
                         <!-- <button class="btn btn-outline-info btn-rounded btn-block my-4 waves-effect z-depth-0 active " type="submit">Sign in</button>
              -->
