@@ -60,19 +60,19 @@
     <section class="inner-page">
      
     <!-- Default form login -->
-    <div class="container" style="margin-top:30px;">
+    <div class="container" style="margin-top:30px">
         
       <div class="row justify-content-md-center align-items-center" style="position: relative;">
           <div>
-          <form class="text-center border border-light p-5"  action="#!">
-
+          <form method = 'post' action = 'logined' class="text-center border border-light p-5"  action="#!">
+            {% csrf_token %}
               <p class="book-a-table text-center">Sign in</p>
 
               <!-- Email -->
-              <input type="email" id="defaultLoginFormEmail" class="form-control mb-4" placeholder="E-mail">
+              <input type="text" name = "username" id="defaultLoginFormEmail" class="form-control mb-4" placeholder="Username">
 
               <!-- Password -->
-              <input type="password" id="defaultLoginFormPassword" class="form-control mb-4" placeholder="Password">
+              <input type="password" name = "password" id="defaultLoginFormPassword" class="form-control mb-4" placeholder="Password">
 
               <div class="d-flex justify-content-around">
                   <div>
@@ -86,7 +86,7 @@
               </div>
 
               <!-- Sign in button -->
-              <!-- <button class="book-a-table text-center" type="submit">Sign in</button> -->
+              <button class="book-a-table text-center" type="submit">Sign in</button>
             <ul class="nav-menu d-none d-lg-block"> 
               <p class="book-a-table text-center"><a href="#book-a-table">Sign In</a></p>
             </ul>
