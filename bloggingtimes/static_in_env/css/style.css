@@ -1825,3 +1825,12 @@ section {
   font-size: 13px;
   color: #fff;
 }
+/* comments */
+.comment-author {
+  width: 10%;
+}
+
+.recent-author {
+  width: 500px;
+  height: 150px;
+}
