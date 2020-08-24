@@ -47,8 +47,8 @@
           <div class="container-fluid">
                 <div class="row" >
                     <div class="col-12">
-                        <form method="GET" class="form-inline">                
-                            <input class="form-control" name="query" type="text" placeholder="Search..." aria-label="Search">
+                        <form method="GET" action="" class="form-inline">                
+                            <input class="form-control" name="search" type="search" placeholder="Search..." aria-label="Search">
                             <button class="btn" type="submit" style="color: #cda45e;">
                               <i class="fa fa-search"></i>
                             </button>                                
@@ -56,6 +56,8 @@
                     </div>                
                 </div>            
                 <div class="row" >
+                {% comment  %}
+                
                 {% for blog in blogs %}
                     <article class="col-12 col-md-6" data-aos="zoom-in"
                     data-aos-delay="100">
@@ -80,7 +82,33 @@
                         </div>
                     </article>
                     
-                  {% endfor %}
+                  {% endfor %} {% endcomment %}
+                  {% for result in blogs %}
+                  <article class="col-12 col-md-6" data-aos="zoom-in"
+                    data-aos-delay="100">
+                        <hr>
+                        <a href="{% url 'blog:post-detail' result.id%}" class="effect-lily">
+                            <div>
+                                <img src="{{result.thumnail_image.url}}" alt="Image" class="img-fluid" style="width:500px;height:300px">                            
+                            </div>
+                            <h2>{{result.title}}</h2>
+                        </a>                    
+                        <p class="pt-3">
+                            {{result.content}}
+                        </p>
+                        <div class="d-flex justify-content-between pt-4">
+                            <span>Travel . Events</span>
+                            <span>{{result.date_posted}}</span>
+                        </div>
+                        <hr>
+                        <div class="d-flex justify-content-between">
+                            
+                            <span>by {{result.author}}</span>
+                        </div>
+                    </article>
+                    {% empty %}
+                    add something to show no results
+                {% endfor %}
                
               
           
