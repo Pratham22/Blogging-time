@@ -18,12 +18,15 @@ class home(View):
         }
         return render(self.request, "index.html", context)
 
+class create_blog(View):
+    def get(self, *args, **kwargs):
+        return render(self.request, "new-blog-post.html")
 class all_blogs(ListView):
     model = Post
     template_name = 'all-blogs-page.html'  
     context_object_name = 'blogs'
     ordering = ['-date_posted']
-    paginate_by = 2
+    paginate_by = 6
     def get_queryset(self):
        result = super(all_blogs, self).get_queryset()
        query = self.request.GET.get('search')
