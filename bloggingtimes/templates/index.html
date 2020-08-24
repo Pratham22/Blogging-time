@@ -279,9 +279,10 @@
             <div class="col-lg-3 col-md-4">
               <div class="gallery-item">
                 <a
-                  href="{{blog.main_img.url}}"
+                  href="{% url 'blog:post-detail' blog.id%}"
+                 {% comment %}
                   class="venobox"
-                  data-gall="gallery-item"
+                  data-gall="gallery-item" {% endcomment %}
                 >
                   <img
                     src="{{blog.thumnail_image.url}}"
