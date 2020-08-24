@@ -69,41 +69,23 @@
                             <div data-aos="fade-up" data-aos-delay="100">
                                 <h2 class="comment-title">Comments</h2>
                                 <hr />
+                                {% for comm in comments %}
                                 <div class="comment">
                                     <figure class="comment-figure">
                                         <img src="{% static 'img/gallery/gallery-1.jpg' %}" alt="Image" class="mb-2 rounded-circle comment-author">
-                                        <span>Mark Sonny</span>
+                                        <span>{{comm.name}}</span>
                                     </figure>
                                     <div>
                                         <p>
-                                            Praesent aliquam ex vel lectus ornare tritique. Nunc et eros
-                                            quis enim feugiat tincidunt et vitae dui. Nullam consectetur
-                                            justo ac ex laoreet rhoncus. Nunc id leo pretium, faucibus 
-                                            sapien vel, euismod turpis.
+                                            {{comm.body | linebreaks}}
                                         </p>
                                         <div class="d-flex justify-content-between">
-                                            <a href="#">REPLY</a>
-                                            <span>June 14, 2020</span>
+                                            <span>{{comm.created_on}}</span>
                                         </div>                                                 
                                     </div>                                
                                 </div>
-                                  <div class="comment">
-                                  <figure class="comment-figure">
-                                      <img src="{% static 'img/gallery/gallery-1.jpg' %}" alt="Image" class="mb-2 rounded-circle comment-author">
-                                      <span>Mark Sonny</span>
-                                  </figure>
-                                  <div>
-                                      <p>
-                                          Praesent aliquam ex vel lectus ornare tritique. Nunc et eros
-                                          quis enim feugiat tincidunt et vitae dui. Nullam consectetur
-                                          justo ac ex laoreet rhoncus. Nunc id leo pretium, faucibus 
-                                          sapien vel, euismod turpis.
-                                      </p>
-                                      <div class="d-flex justify-content-between">
-                                          <a href="#">REPLY</a>
-                                          <span>June 14, 2020</span>
-                                      </div>                                                 
-                                  </div>                                
+                                {% endfor %}
+                                                           
                               </div>
                                 <form action="" class="mb-5 comment-form">
                                     <h2 class="tm-color-primary tm-post-title mb-4">Your comment</h2>

@@ -21,7 +21,7 @@ class home(View):
 def PostDetailView(request,pk):
     template_name='single-blog-page.html'
     post=get_object_or_404(Post,id=pk)
-    comments=comment.objects.filter(active=True)
+    comments=comment.objects.filter(active=True).filter(post=post)
     new_comment=None
     if request.method=='POST':
         comment_form=commentform(data=request.POST)
