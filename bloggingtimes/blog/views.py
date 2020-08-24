@@ -13,12 +13,17 @@ from .forms import cmtform
 class home(View):
     def get(self, *args, **kwargs):
         post=Post.objects.order_by('-date_posted').filter(passed_by_mentor=True)
-        
         context = {
             'blogs': post
         }
         return render(self.request, "index.html", context)
 
+class all_blogs(ListView):
+    model = Post
+    template_name = 'all-blogs-page.html'  
+    context_object_name = 'blogs'
+    ordering = ['-date_posted']
+    paginate_by = 4
 def PostDetailView(request,pk):
     template_name='single-blog-page.html'
     post=get_object_or_404(Post,id=pk)
