@@ -9,7 +9,7 @@ from django.shortcuts import redirect
 from django.utils import timezone
 from django.views.decorators.csrf import csrf_exempt
 from .models import Post,comment
-from .forms import commentform
+from .forms import cmtform
 class home(View):
     def get(self, *args, **kwargs):
         post=Post.objects.order_by('-date_posted').filter(passed_by_mentor=True)
@@ -18,20 +18,31 @@ class home(View):
             'blogs': post
         }
         return render(self.request, "index.html", context)
+
 def PostDetailView(request,pk):
     template_name='single-blog-page.html'
     post=get_object_or_404(Post,id=pk)
     comments=comment.objects.filter(active=True).filter(post=post)
-    new_comment=None
     if request.method=='POST':
-        comment_form=commentform(data=request.POST)
-        if comment_form.is_valid():
-            new_comment = comment_form.save(commit=False)
-            new_comment.post=Post
-            new_comment.save()
+        comment_form=cmtform(request.POST or None)
+        try:
+            if comment_form.is_valid():
+                name= comment_form.cleaned_data.get('name')
+                email= comment_form.cleaned_data.get('email')
+                body=comment_form.cleaned_data.get('body')
+                comment_form1 = comment.objects.create(
+                    post=post,
+                    name=name,
+                    email=email,
+                    body=body,
+                )
+                #contact_me.save()
+                #return redirect('blog:post-detail')
+        except ObjectDoesNotExist:
+            messages.error(self.request, "fill the form correctly")
+            #return redirect("core:contact")
     else:
-        comment_form=commentform()
+        comment_form=cmtform()
     return render(request, template_name, {'post': post,
                                            'comments': comments,
-                                           'new_comment': new_comment,
-                                           'comment_form': comment_form})
+                                           'comment_form': cmtform})

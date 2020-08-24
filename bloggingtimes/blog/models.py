@@ -8,7 +8,7 @@ class Post(models.Model):
     thumnail_image=models.ImageField()
     main_img=models.ImageField(null=True)
     content = models.TextField()
-    date_posted = models.DateTimeField(default=timezone.now)
+    date_posted = models.DateTimeField(auto_now_add=True)
     author = models.ForeignKey(User, on_delete=models.CASCADE)
     passed_by_mentor=models.BooleanField(default=False)
     def __str__(self):

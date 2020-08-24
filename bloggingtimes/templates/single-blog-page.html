@@ -87,24 +87,42 @@
                                 {% endfor %}
                                                            
                               </div>
-                                <form action="" class="mb-5 comment-form">
+                              
+                              
+                      
+                                <form action="" method="POST" class="mb-5 comment-form">
+                                {% csrf_token %}
                                     <h2 class="tm-color-primary tm-post-title mb-4">Your comment</h2>
+                                    
+                                    
+          
                                     <div class="mb-4">
-                                        <input class="form-control" name="name" type="text" placeholder=name>
+                                    {{comment_form.name}}</div>
+                                      <div class="mb-4">
+                                    {{comment_form.email}}</div>
+                                    <div class="mb-4">
+                                    {{comment_form.body}}</div>
+                                      {% comment  %}<input class="form-control" name="name" type="text" placeholder="name"> 
                                     </div>
                                     <div class="mb-4">
                                         <input class="form-control" name="email" type="text" placeholder="email">
                                     </div>
                                     <div class="mb-4">
                                         <textarea class="form-control" name="message" rows="6" placeholder="message"></textarea>
-                                    </div>
+                                    </div> 
+                                      {% endcomment %}
+                                        
                                     <ul class="nav-menu d-none d-lg-block"> 
-                                      <p class="book-a-table text-center"><a href="#book-a-table">submit</a></p>
-                                    </ul>                               
-                                </form>                          
+                                      <p class="book-a-table text-center"><a href="#book-a-table"><button type="submit" style="width:100%;background-color:transparent;border:0px; color:white;height:100%">Submit</button></a>
+                                     {% comment %}
+                                     <button style="width:650px; border-radius:10px;color:white;border-color:#CDA45E;border:2px; background-color:transparent" type="submit">Add comment </button></p>
+                                    {% endcomment %}</ul>                               
+                                </form>                      
                             </div>
                         </div>
                     </div>
+                    {% comment  %}
+              
                     <aside class="col-lg-4" data-aos="fade-up" data-aos-delay="300">
                         <div>
                             <hr class="mb-3">
@@ -137,12 +155,12 @@
                             </figure>
                         </a>  
                         </div>                    
-                    </aside>
+                    </aside> {% endcomment %}
                   </div>
             </main>
         </div>
         </div>
-        </section>
+        </section> 
         <!-- footer -->
         <footer id="footer">
           <div class="footer-top">
