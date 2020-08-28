@@ -7,6 +7,12 @@ from .views import register
 from .views import loginRender
 from .views import loginAuthenticate 
 from .views import userLogout
+from .views import editProfile
+from .views import profile
+from .views import userProfileEdit
+from .views import updateAddress
+from .views import updateEmail
+from .views import updatePhone
 
 app_name = 'users'
 urlpatterns = [
@@ -14,6 +20,12 @@ urlpatterns = [
     path('registerRender', registerRender, name="register"),
     path('login', loginRender, name = 'login'),
     path('logined', loginAuthenticate, name = 'loginAuthenticate'),
-    path('userLogout', userLogout, name = 'logout')
+    path('userLogout', userLogout, name = 'logout'),
+    path('profile', profile, name = 'profile'),
+    path('editprofile', editProfile, name = 'editProfile'),
+    path('userProfileEdit', userProfileEdit, name = 'userProfileEdit'),
+    path('updateAddress', updateAddress, name = 'updateAddress'),
+    path('updateEmail', updateEmail, name = 'updateEmail'),
+    path('updatePhone', updatePhone, name = 'updatePhone')
     #path('post/<int:pk>/', PostDetailView.as_view(), name='post-detail'),
 ]
