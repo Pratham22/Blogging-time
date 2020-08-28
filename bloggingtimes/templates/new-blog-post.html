@@ -51,16 +51,16 @@
                 <p>Post A Blog</p>
               </div>
               <form
-                action="forms/book-a-table.php"
-                method="post"
+                method="POST"
+                action="blog:create-blog"
                 role="form"
                 class="php-email-form"
                 data-aos="fade-up"
-                data-aos-delay="100"
-              >
+                data-aos-delay="100">
+                {% csrf_token %}
                 <div class="form-row">
                   <div class="col-lg-4 col-md-6 form-group">
-                    <input
+                 {% comment  %}<input
                       type="text"
                       name="title"
                       class="form-control"
@@ -69,26 +69,40 @@
                       data-rule="minlen:2"
                       data-msg="Please enter at least 2 chars"
                     />
+                 {% endcomment %}    {{blogfrm.title}}
                     <div class="validate"></div>
                   </div>
-                  <div class="col-lg-4 col-md-6 form-group">
-                    <input
+                  <div class="col-lg-4 col-md-6 form-group" style="bottom:24px;">
+                    Select thumbnail image
+                {% comment  %}<input
                       type="file"
-                      name="images"
+                      name="thum-images"
                       class="form-control"
                       id="images"
-                      placeholder="images"
+                      
                     />
+                {% endcomment %}  {{blogfrm.thum_img}} 
+                  </div>
+                  <div class="col-lg-4 col-md-6 form-group" style="bottom:24px;">
+                  Select cover image
+                 {% comment  %}<input
+                      type="file"
+                      name="cover-images"
+                      class="form-control"
+                      id="images"
+                    />
+                 {% endcomment %}   {{blogfrm.cover_img}}
                   </div>
                 </div>
                 <em>Please provide a links inside anchor tag<em>
                 <div class="form-group">
-                  <textarea
+              {% comment  %}<textarea
                     class="form-control"
                     name="blog-content"
                     rows="10"
                     placeholder="Blog content"
                   ></textarea>
+              {% endcomment %}    {{blogfrm.content}}
                   <div class="validate"></div>
                 </div>
                 <div class="mb-3">

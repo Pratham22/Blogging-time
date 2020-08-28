@@ -9,7 +9,7 @@ from django.shortcuts import redirect
 from django.utils import timezone
 from django.views.decorators.csrf import csrf_exempt
 from .models import Post,comment
-from .forms import cmtform
+from .forms import cmtform,blogform
 class home(View):
     def get(self, *args, **kwargs):
         post=Post.objects.order_by('-date_posted').filter(passed_by_mentor=True)
@@ -20,7 +20,55 @@ class home(View):
 
 class create_blog(View):
     def get(self, *args, **kwargs):
-        return render(self.request, "new-blog-post.html")
+        context={
+            'blogfrm':blogform
+        }
+        return render(self.request, "new-blog-post.html",context)
+    def POST(self,*args, **kwargs):
+        form=blogform(self.request.POST or None)
+        try:
+            if form.is_valid():
+                user_loged=request.user
+                title=form.cleaned_data.get('title')
+                thum_img=form.cleaned_data.get('thum_img')
+                cv_img=form.cleaned_data.get('cover_img')
+                content=form.cleaned_data.get('content')
+                new_blog=Post.objects.create(
+                title=title,
+                thumnail_image=thum_img,
+                main_img=cv_img,
+                content=content,
+                author=user_loged)
+                return redirect('blog:all-blog')
+        except ObjectDoesNotExist:
+            messages.error(self.request, "fill the form correctly")
+            return redirect("blog:create-blog")
+
+def create_post(request):
+    template_name='new-blog-post.html'
+    if request.method=='POST':
+        form=blogform(request.POST or None)
+        try:
+            if form.is_valid():
+                user_loged=request.user
+                title=form.cleaned_data.get('title')
+                thum_img=form.cleaned_data.get('thum_img')
+                cv_img=form.cleaned_data.get('cover_img')
+                content=form.cleaned_data.get('content')
+                new_blog=Post.objects.create(
+                title=title,
+                thumnail_image=thum_img,
+                main_img=cv_img,
+                content=content,
+                author=user_loged)
+                print(user_loged)
+        except ObjectDoesNotExist:
+            messages.error(self.request, "fill the form correctly")
+            #return redirect("core:contact")
+    else:
+        form=blogform()
+    return render(request, template_name, {'blogfrm': blogform})
+ 
 class all_blogs(ListView):
     model = Post
     template_name = 'all-blogs-page.html'  
@@ -36,10 +84,12 @@ class all_blogs(ListView):
        else:
            result = Post.objects.order_by('-date_posted')
        return result
+
+
 def PostDetailView(request,pk):
     template_name='single-blog-page.html'
     post=get_object_or_404(Post,id=pk)
-    comments=comment.objects.filter(active=True).filter(post=post)
+    comments=comment.objects.filter(active=True).filter(post=post).order_by('-created_on')
     if request.method=='POST':
         comment_form=cmtform(request.POST or None)
         try:
