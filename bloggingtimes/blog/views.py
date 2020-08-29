@@ -24,7 +24,7 @@ class create_blog(View):
             'blogfrm':blogform
         }
         return render(self.request, "new-blog-post.html",context)
-    def POST(self,*args, **kwargs):
+    def post(self,*args, **kwargs):
         form=blogform(self.request.POST or None)
         try:
             if form.is_valid():
@@ -39,14 +39,14 @@ class create_blog(View):
                 main_img=cv_img,
                 content=content,
                 author=user_loged)
-                return redirect('blog:all-blog')
+                return redirect('blog:create-blog')
         except ObjectDoesNotExist:
             messages.error(self.request, "fill the form correctly")
-            return redirect("blog:create-blog")
+            return redirect('blog:create-blog')
 
 def create_post(request):
     template_name='new-blog-post.html'
-    if request.method=='POST':
+    if request.method=='post':
         form=blogform(request.POST or None)
         try:
             if form.is_valid():
@@ -61,7 +61,7 @@ def create_post(request):
                 main_img=cv_img,
                 content=content,
                 author=user_loged)
-                print(user_loged)
+                print('hello world')
         except ObjectDoesNotExist:
             messages.error(self.request, "fill the form correctly")
             #return redirect("core:contact")
