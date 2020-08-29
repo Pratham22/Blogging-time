@@ -58,7 +58,49 @@
                 data-aos-delay="100">
                 {% csrf_token %}
                
-                {{blogfrm.as_p}}
+              <div class="form-row">
+                  <div class="col-lg-4 col-md-6 form-group">
+                 {% comment  %}<input
+                      type="text"
+                      name="title"
+                      class="form-control"
+                      id="title"
+                      placeholder="Title"
+                    />
+                 {% endcomment %}    {{blogfrm.title}}
+                  </div>
+                  <div class="col-lg-4 col-md-6 form-group" style="bottom:24px;">
+                    Select thumbnail image
+                {% comment  %}<input
+                      type="file"
+                      name="thum-images"
+                      class="form-control"
+                      id="images"
+                      
+                    />
+                {% endcomment %}  {{blogfrm.thum_img}} 
+                  </div>
+                  <div class="col-lg-4 col-md-6 form-group" style="bottom:24px;">
+                  Select cover image
+                 {% comment  %}<input
+                      type="file"
+                      name="cover-images"
+                      class="form-control"
+                      id="images"
+                    />
+                 {% endcomment %}   {{blogfrm.cover_img}}
+                  </div>
+                </div>
+                <em>Please provide a links inside anchor tag<em>
+                <div class="form-group">
+              {% comment  %}<textarea
+                    class="form-control"
+                    name="blog-content"
+                    rows="10"
+                    placeholder="Blog content"
+                  ></textarea>
+              {% endcomment %}    {{blogfrm.content}}
+                </div> 
                 <div class="text-center">
                   <button type="submit">Post</button>
                 </div>
