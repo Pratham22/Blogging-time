@@ -30,3 +30,11 @@ class blogform(forms.Form):
          'class':'form-control',
          'rows':'10',
     }))
+
+class newblog(forms.Form):
+    title=forms.CharField(required=True)
+    thum_img=forms.ImageField(required=True)
+    cover_img=forms.ImageField(required=True)
+    content=forms.CharField(required=True,widget=forms.Textarea(attrs={
+         'rows':'10',
+    }))

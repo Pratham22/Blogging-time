@@ -1,1 +1,0 @@
-print("static files here")
