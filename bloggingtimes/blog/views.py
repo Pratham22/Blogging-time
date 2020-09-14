@@ -29,6 +29,7 @@ def new_all_blogs(request):
         if request.method == 'POST':
             title = request.POST['title']
             blogcontent = request.POST.get('content')
+            print(blogcontent)
             main_img=request.POST['cover-images']
             thum_img=request.POST['thum-images']
             user_logged=request.user               
