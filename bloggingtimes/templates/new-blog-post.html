@@ -55,7 +55,8 @@
                 action="new_all_blogs"
                 role="form"
                 data-aos="fade-up"
-                data-aos-delay="100">
+                data-aos-delay="100"
+                enctype="multipart/form-data">
                 {% csrf_token %}
                
               <div class="form-row">
@@ -73,7 +74,7 @@
                     Select thumbnail image
                 <input
                       type="file"
-                      name="thum-images"
+                      name="thumimages"
                       class="form-control"
                       id="images"
                       
@@ -84,7 +85,7 @@
                   Select cover image
                  <input
                       type="file"
-                      name="cover-images"
+                      name="coverimages"
                       class="form-control"
                       id="images"
                     />

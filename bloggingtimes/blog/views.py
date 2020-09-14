@@ -11,6 +11,7 @@ from django.views.decorators.csrf import csrf_exempt
 from .models import Post,comment
 from .forms import cmtform,blogform,newblog
 from django.http import HttpResponse
+from django.core.files.storage import FileSystemStorage
 class home(View):
     def get(self, *args, **kwargs):
         post=Post.objects.order_by('-date_posted').filter(passed_by_mentor=True)
@@ -29,12 +30,14 @@ def new_all_blogs(request):
         if request.method == 'POST':
             title = request.POST['title']
             blogcontent = request.POST.get('content')
-            print(blogcontent)
-            main_img=request.POST['cover-images']
-            thum_img=request.POST['thum-images']
+            main_img=request.FILES['coverimages']
+            thum_img=request.FILES['thumimages']
+            fs=FileSystemStorage()
+            filename=fs.save(main_img.name,main_img)
+            filename2=fs.save(thum_img.name,thum_img)
             user_logged=request.user               
             Post.objects.create(author=user_logged,title=title,content=blogcontent,main_img=main_img,thumnail_image=thum_img)
-            return HttpResponse('test.html')
+            return HttpResponse('your blog is under approval of the mentor and will be available on the list after approval')
     else:
         return HttpResponse('login.html')
 
