@@ -9,7 +9,7 @@ from django.shortcuts import redirect
 from django.utils import timezone
 from django.views.decorators.csrf import csrf_exempt
 from .models import Post,comment
-from .forms import cmtform
+from .forms import cmtform,blogform,newblog
 from django.http import HttpResponse
 from django.core.files.storage import FileSystemStorage
 class home(View):
