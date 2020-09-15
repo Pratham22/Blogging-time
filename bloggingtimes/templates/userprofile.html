@@ -58,6 +58,7 @@
           <li><a href="#portfolio">Portfolio</a></li>
           <li><a href="#contact">Contact</a></li>
           <li><a href="userProfileEdit">Edit</a></li>
+          <li><a href="userLogout">Log Out</a></li>
         </ul>
       </nav><!-- .nav-menu -->
 <!-- 
@@ -90,30 +91,28 @@
         <div class="col-lg-8 pt-4 pt-lg-0 content" data-aos="fade-left">
           <h3>UI/UX &amp; Graphic Designer</h3>
           <p class="font-italic">
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore
-            magna aliqua.
+            {{request.user.profile.about}}
           </p>
           <div class="row">
             <div class="col-lg-6">
               <ul>
-                <li><i class="icofont-rounded-right"></i> <strong>Birthday:</strong> 1 May 1995</li>
-                <li><i class="icofont-rounded-right"></i> <strong>Website:</strong> www.example.com</li>
+                <li><i class="icofont-rounded-right"></i> <strong>Birthday:</strong> {{request.user.profile.dob}}</li>
+                <li><i class="icofont-rounded-right"></i> <strong>Website:</strong> {{request.user.profile.website}}</li>
                 <li><i class="icofont-rounded-right"></i> <strong>Phone:</strong> {{request.user.profile.phone}}</li>
                 <li><i class="icofont-rounded-right"></i> <strong>City:</strong> {{request.user.profile.city}}</li>
               </ul>
             </div>
             <div class="col-lg-6">
               <ul>
-                <li><i class="icofont-rounded-right"></i> <strong>Age:</strong> 30</li>
-                <li><i class="icofont-rounded-right"></i> <strong>Degree:</strong> Master</li>
+                <li><i class="icofont-rounded-right"></i> <strong>Age:</strong> {{request.user.profile.age}}</li>
+                <li><i class="icofont-rounded-right"></i> <strong>Degree:</strong> {{request.user.profile.degree}}</li>
                 <li><i class="icofont-rounded-right"></i> <strong>PhEmailone:</strong> {{request.user.profile.email}}</li>
-                <li><i class="icofont-rounded-right"></i> <strong>Freelance:</strong> Available</li>
+                <li><i class="icofont-rounded-right"></i> <strong>Freelance:</strong> {{request.user.profile.freelance}}</li>
               </ul>
             </div>
           </div>
           <p>
-            Officiis eligendi itaque labore et dolorum mollitia officiis optio vero. Quisquam sunt adipisci omnis et ut. Nulla accusantium dolor incidunt officia tempore. Et eius omnis.
-            Cupiditate ut dicta maxime officiis quidem quia. Sed et consectetur qui quia repellendus itaque neque. Aliquid amet quidem ut quaerat cupiditate. Ab et eum qui repellendus omnis culpa magni laudantium dolores.
+            {{request.user.profile.motive}}
           </p>
         </div>
       </div>

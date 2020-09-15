@@ -27,17 +27,21 @@
 
       <nav class="nav-menu d-none d-lg-block">
         <ul>
-          <li><a href="index.html">Home</a></li>
+          <li class="active"><a href="{% url 'blog:home' %}">Home</a></li>
           <li><a href="#about">About</a></li>
-          <li><a href="#menu">Menu</a></li>
-          <li><a href="#specials">Specials</a></li>
-          <li><a href="#events">Events</a></li>
-          <li><a href="#gallery">Gallery</a></li>
-          <li><a href="#chefs">Chefs</a></li>
+          <li><a href="#feed">Blog Feed</a></li>
+          <li><a href="#profile">Profile</a></li>
+          <li><a href="#mentors">Mentors</a></li>
+          <li><a href="#recentblogs">Recent Blogs</a></li>
           <li><a href="#contact">Contact</a></li>
-          <li class="book-a-table text-center"><a href="#book-a-table">Book a table</a></li>
+          <li class="book-a-table text-center">
+            <a href="#book-a-table">Sign Up Here</a>
+          </li>
+          <li class="book-a-table text-center">
+            <a href="{% url 'users:login' %}">Log In</a>
+          </li>
         </ul>
-      </nav><!-- .nav-menu -->
+      </nav>
 
     </div>
   </header><!-- End Header -->

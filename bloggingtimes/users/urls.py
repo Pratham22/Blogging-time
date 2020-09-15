@@ -13,6 +13,7 @@ from .views import userProfileEdit
 from .views import updateAddress
 from .views import updateEmail
 from .views import updatePhone
+from .views import updateInfo
 
 app_name = 'users'
 urlpatterns = [
@@ -26,6 +27,6 @@ urlpatterns = [
     path('userProfileEdit', userProfileEdit, name = 'userProfileEdit'),
     path('updateAddress', updateAddress, name = 'updateAddress'),
     path('updateEmail', updateEmail, name = 'updateEmail'),
-    path('updatePhone', updatePhone, name = 'updatePhone')
-    #path('post/<int:pk>/', PostDetailView.as_view(), name='post-detail'),
+    path('updatePhone', updatePhone, name = 'updatePhone'),
+    path('updateInfo', updateInfo, name = 'updateInfo')
 ]

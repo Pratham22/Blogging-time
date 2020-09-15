@@ -5,6 +5,36 @@ from django.contrib.auth.models import User, auth
 from django.contrib.auth import login, authenticate, logout
 
 # Create your views here.
+def updateInfo(request):
+    if request.user.is_authenticated:
+        if request.method == 'POST':
+            newMotive = request.POST['motive']
+            newDOB = request.POST['dob']
+            newAge = request.POST['age']
+            newWebsite = request.POST['website']
+            newFreelance = 'False'
+            newAbout = request.POST['about']
+            newDegree = request.POST['degree']
+            print(newMotive, newAbout, newAge, newDegree, newDegree, newFreelance, newWebsite)
+            user = Profile.objects.get(user = request.user)
+            user.motive = newMotive if newMotive is not '' else request.user.profile.motive
+            user.dob = newDOB if newDOB is not '' else request.user.profile.dob
+            user.age = newAge if newAge is not '' else request.user.profile.age
+            user.website = newWebsite if newWebsite is not '' else request.user.profile.website
+            user.freelance = newFreelance if newFreelance is not '' else request.user.profile.freelance
+            user.about = newAbout if newAbout is not '' else request.user.profile.about
+            user.degree = newDegree if newDegree is not '' else request.user.profile.degree
+            try:
+                user.save()                
+            except:
+                print('Done')
+                return HttpResponse('<h2>Something went wrong</h2>')
+            return HttpResponse('<h2>Update Done Succesfully</h2>')
+        else:
+            return HttpResponse('<h2>Something went wrong</h2>')
+    else:
+        return render(request, 'login.html')
+
 def updatePhone(request):
     if request.user.is_authenticated:
         if request.method == 'POST':
@@ -77,14 +107,14 @@ def editProfile(request):
             newEmail = request.POST['email']
             newPhone = request.POST['phone']
             user = Profile.objects.get(user = request.user)
-            user.phone = newPhone if newPhone is not None else request.user.profile.phone
-            user.email = newEmail if newEmail is not None else request.user.profile.email
-            user.address = newAddress if newAddress is not None else request.user.profile.address
-            user.twitter = newTwitter if newTwitter is not None else request.user.profile.twitter
-            user.facebook = newFacebook if newFacebook is not None else request.user.profile.facebook
-            user.instagram = newInstagram if newInstagram is not None else request.user.profile.instagram
-            user.skype = newSkype if newSkype is not None else request.user.profile.skype
-            user.linkedin = newLinkedin if newLinkedin is not None else request.user.profile.linkedin
+            user.phone = newPhone if newPhone is not '' else request.user.profile.phone
+            user.email = newEmail if newEmail is not '' else request.user.profile.email
+            user.address = newAddress if newAddress is not '' else request.user.profile.address
+            user.twitter = newTwitter if newTwitter is not '' else request.user.profile.twitter
+            user.facebook = newFacebook if newFacebook is not '' else request.user.profile.facebook
+            user.instagram = newInstagram if newInstagram is not '' else request.user.profile.instagram
+            user.skype = newSkype if newSkype is not '' else request.user.profile.skype
+            user.linkedin = newLinkedin if newLinkedin is not '' else request.user.profile.linkedin
             try:
                 user.save()
             except:
@@ -98,7 +128,7 @@ def editProfile(request):
 def userLogout(request):
     logout(request)
     print(User.username)
-    return render(request, 'test.html')
+    return render(request, 'login.html')
 
 def loginRender(request):
     return render(request, 'login.html')
