@@ -7,11 +7,11 @@ from django.shortcuts import render, get_object_or_404
 from django.views.generic import ListView, DetailView, View,CreateView
 from django.shortcuts import redirect
 from django.utils import timezone
-from django.views.decorators.csrf import csrf_exempt
 from .models import Post,comment
-from .forms import cmtform,blogform,newblog
+from .forms import cmtform,PostForm
 from django.http import HttpResponse
 from django.core.files.storage import FileSystemStorage
+
 class home(View):
     def get(self, *args, **kwargs):
         post=Post.objects.order_by('-date_posted').filter(passed_by_mentor=True)
@@ -38,7 +38,7 @@ def new_all_blogs(request):
             user_logged=request.user               
             Post.objects.create(author=user_logged,title=title,content=blogcontent,main_img=main_img,thumnail_image=thum_img)
             return HttpResponse('your blog is under approval of the mentor and will be available on the list after approval')
-    else:
+    else:   
         return HttpResponse('login.html')
 
 class all_blogs(ListView):
@@ -56,7 +56,27 @@ class all_blogs(ListView):
        else:
            result = Post.objects.order_by('-date_posted')
        return result
+@login_required
+def AddPostView(request):
+    template_name='create-blog.html'
+    return render(request,template_name,{'form':PostForm})
 
+@login_required
+def addpostsave(request):
+    if request.method=='POST':
+        title=request.POST['title']
+        blogcontent=request.POST['content']
+        main_img=request.FILES['main_img']
+        thum_img=request.FILES['thumnail_image']
+        fs=FileSystemStorage()
+        filename=fs.save(main_img.name,main_img)
+        filename2=fs.save(thum_img.name,thum_img)
+        user_logged=request.user
+        print(main_img)
+        Post.objects.create(title=title,thumnail_image=thum_img,main_img=main_img,content=blogcontent,author=user_logged) 
+        return HttpResponse("hello")
+    else:
+        return HttpResponse("no form submitted")
 
 def PostDetailView(request,pk):
     template_name='single-blog-page.html'

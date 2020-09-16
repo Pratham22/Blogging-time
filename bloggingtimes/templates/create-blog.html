@@ -1,0 +1,12 @@
+<html>
+<body>
+    <h1>add new blog</h1>
+    <form method="POST" action="addpostsave" enctype="multipart/form-data"> 
+    {% csrf_token %}
+    {{ form.media }}
+    {{ form.as_p }}
+    <button type="submit">Post</button>
+    </form>
+    <script>window.CKEDITOR_BASEPATH = '/static_in_env/ckeditor/ckeditor/';</script>
+</body>
+</html>

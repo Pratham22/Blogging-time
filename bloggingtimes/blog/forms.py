@@ -14,27 +14,11 @@ class cmtform(forms.Form):
          'placeholder':'Comment',
          'class':'form-control',
     }))
-   
-class blogform(forms.Form):
-    title= forms.CharField(required=True,widget=forms.TextInput(attrs={
-        'placeholder':'Title',
-         'class':'form-control',
-         'id':'title',
-         'data-rule':'minlen:2',
-        'data-msg':'Please enter at least 2 chars'
-    }))
-    thum_img=forms.ImageField(required=True)
-    cover_img=forms.ImageField(required=True)
-    content=forms.CharField(required=True,widget=forms.Textarea(attrs={
-         'placeholder':'blog content',
-         'class':'form-control',
-         'rows':'10',
-    }))
 
-class newblog(forms.Form):
-    title=forms.CharField(required=True)
-    thum_img=forms.ImageField(required=True)
-    cover_img=forms.ImageField(required=True)
-    content=forms.CharField(required=True,widget=forms.Textarea(attrs={
-         'rows':'10',
-    }))
+class PostForm(forms.ModelForm):
+    
+    class Meta:
+        model = Post
+        #fields="__all__"
+        fields = ('title','thumnail_image','main_img','content')
+       

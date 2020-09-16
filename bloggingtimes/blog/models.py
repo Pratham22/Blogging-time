@@ -2,18 +2,19 @@ from django.db import models
 from django.utils import timezone
 from django.contrib.auth.models import User
 from django.urls import reverse
+from ckeditor.fields import RichTextField
 class Post(models.Model):
     title = models.CharField(max_length=100)
     thumnail_image=models.ImageField()
     main_img=models.ImageField(null=True)
-    content = models.TextField()
+    content = RichTextField(blank=True, null=True)
     date_posted = models.DateTimeField(auto_now_add=True)
     author = models.ForeignKey(User, on_delete=models.CASCADE)
     passed_by_mentor=models.BooleanField(default=False)
     def __str__(self):
         return self.title
     def get_absolute_url(self):
-        return reverse('blog:post-detail', kwargs={'pk': self.pk})
+        return reverse('blog:home')
 
 class comment(models.Model):
     post=models.ForeignKey(Post,on_delete=models.CASCADE,related_name='coments')
