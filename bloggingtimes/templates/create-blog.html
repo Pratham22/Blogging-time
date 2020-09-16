@@ -1,12 +1,67 @@
-<html>
-<body>
-    <h1>add new blog</h1>
-    <form method="POST" action="addpostsave" enctype="multipart/form-data"> 
+{% extends 'base.html' %}
+{% load static%}
+{% block content %}
+  <body>
+  <!-- ======= Header ======= -->
+  <header id="header">
+    <div class="container d-flex align-items-center">
+      <h1 class="logo mr-auto"><a href="#">BloggingTimes</a></h1>
+      <!-- Uncomment below if you prefer to use an image logo -->
+      <!-- <a href="index.html" class="logo mr-auto"><img src="assets/img/logo.png" alt="" class="img-fluid"></a>-->
+
+      <nav class="nav-menu d-none d-lg-block">
+        <ul>
+          <li class="active"><a href="#">Home</a></li>
+          <li><a href="#">About</a></li>
+          <li><a href="#">Blog Feed</a></li>
+          <li><a href="#">Profile</a></li>
+          <li><a href="#">Mentors</a></li>
+          <li><a href="#">Recent Blogs</a></li>
+          <li><a href="#">Contact</a></li>
+          <li class="book-a-table text-center">
+            <a href="#">Sign Up Here</a>
+          </li>
+        </ul>
+      </nav>
+      <!-- .nav-menu -->
+    </div>
+  </header>
+  <!-- End Header -->
+
+
+  <main id="main">
+    <section class="breadcrumbs">
+      <div class="container">
+        <div class="d-flex justify-content-between align-items-center">
+          <h2>Write Your Blog Here</h2>
+          <ol>
+            <li><a href="#">Home</a></li>
+            <li>New Post</li>
+          </ol>
+        </div>
+      </div>
+    </section>
+
+      <section class="inner-page" >
+      
+          <section id="book-a-table" class="book-a-table">
+            <div class="container" data-aos="fade-up">
+              <div class="section-title">
+                <h2>Blog</h2>
+                <p>Post A Blog</p>
+              </div>
+    
+    <form method="POST" action="addpostsave"  role="form"
+                data-aos="fade-up"
+                data-aos-delay="100" enctype="multipart/form-data"> 
     {% csrf_token %}
     {{ form.media }}
     {{ form.as_p }}
     <button type="submit">Post</button>
     </form>
+    </div>
+          </section>
+       
+        </section>
     <script>window.CKEDITOR_BASEPATH = '/static_in_env/ckeditor/ckeditor/';</script>
-</body>
-</html>
+{% endblock %}

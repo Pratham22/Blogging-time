@@ -72,7 +72,6 @@ def addpostsave(request):
         filename=fs.save(main_img.name,main_img)
         filename2=fs.save(thum_img.name,thum_img)
         user_logged=request.user
-        print(main_img)
         Post.objects.create(title=title,thumnail_image=thum_img,main_img=main_img,content=blogcontent,author=user_logged) 
         return HttpResponse("hello")
     else:
@@ -86,9 +85,14 @@ def PostDetailView(request,pk):
         comment_form=cmtform(request.POST or None)
         try:
             if comment_form.is_valid():
-                name= comment_form.cleaned_data.get('name')
-                email= comment_form.cleaned_data.get('email')
-                body=comment_form.cleaned_data.get('body')
+                if request.user.is_authenticated:
+                    name= request.user
+                    email= name.email
+                    body=comment_form.cleaned_data.get('body')
+                else:
+                    name= comment_form.cleaned_data.get('name')
+                    email= comment_form.cleaned_data.get('email')
+                    body=comment_form.cleaned_data.get('body')
                 comment_form1 = comment.objects.create(
                     post=post,
                     name=name,

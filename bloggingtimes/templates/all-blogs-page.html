@@ -66,9 +66,12 @@
                             </div>
                             <h2>{{result.title}}</h2>
                         </a>                    
+                        {% comment  %}
                         <p class="pt-3">
-                            {{result.content}}
-                        </p>
+                            {{result.content|safe}}
+                        </p>   
+                        {% endcomment %}
+                        
                         <div class="d-flex justify-content-between pt-4">
                             <span>Travel . Events</span>
                             <span>{{result.date_posted}}</span>
