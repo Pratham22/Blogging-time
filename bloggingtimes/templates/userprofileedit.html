@@ -129,13 +129,13 @@
                         <img src="${user._id.profilepic}||${}" class="img-fluid" alt="Upload Your Profile Pic" id="myid"
                             style="height:100px; width:auto; border: 0; text-decoration:none; outline:none">
                     </div>
-                    <form class="info-box container d-flex align-items-stretch mt-4 " runat="server" id="form1">
+                    <form action = 'updateProfilePic' method = 'post' enctype="multipart/form-data" class="info-box container d-flex align-items-stretch mt-4 " runat="server" id="form1">
                         {% csrf_token %}
                         <div class="row">
                             <div class="col-12 mb-3">
                                 <div class="custom-file ">
 
-                                    <input type="file" class="custom-file-input" id="demo">
+                                    <input name = 'profileImage' type="file" class="custom-file-input" id="demo">
                                     <label class="custom-file-label" for="customFile">Choose Profile Image</label>
 
                                 </div>
