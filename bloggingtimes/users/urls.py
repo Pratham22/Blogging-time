@@ -14,6 +14,7 @@ from .views import updateAddress
 from .views import updateEmail
 from .views import updatePhone
 from .views import updateInfo
+from .views import updateProfilePic
 
 app_name = 'users'
 urlpatterns = [
@@ -28,5 +29,6 @@ urlpatterns = [
     path('updateAddress', updateAddress, name = 'updateAddress'),
     path('updateEmail', updateEmail, name = 'updateEmail'),
     path('updatePhone', updatePhone, name = 'updatePhone'),
-    path('updateInfo', updateInfo, name = 'updateInfo')
+    path('updateInfo', updateInfo, name = 'updateInfo'),
+    path('updateProfilePic', updateProfilePic, name = 'updateProfilePic')
 ]

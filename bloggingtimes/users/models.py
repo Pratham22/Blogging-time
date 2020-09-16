@@ -3,6 +3,7 @@ from django.contrib.auth.models import User
 
 # Create your models here.
 class Profile(models.Model):
+    profileImage = models.ImageField()
     motive = models.TextField(null=True)
     dob = models.DateField(null = True)
     age = models.IntegerField(null=True)

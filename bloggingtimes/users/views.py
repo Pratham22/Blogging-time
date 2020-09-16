@@ -3,8 +3,27 @@ from django.http import HttpResponse
 from .models import Profile
 from django.contrib.auth.models import User, auth
 from django.contrib.auth import login, authenticate, logout
+from django.core.files.storage import FileSystemStorage
 
 # Create your views here.
+def updateProfilePic(request):
+    if request.user.is_authenticated:
+        if request.method == 'POST':
+            newProfileImage = request.FILES.get('profileImage')
+            user = Profile.objects.get(user = request.user)
+            user.profileImage = newProfileImage if newProfileImage is not '' else request.user.profile.profileImage
+            fs=FileSystemStorage()
+            filename=fs.save(newProfileImage.name,newProfileImage)
+            try:
+                user.save()                
+            except:
+                return render(request, 'errorPage.html')
+            return render(request, 'userprofileedit.html')
+        else:
+            return render(request, 'errorPage.html')
+    else:
+        return render(request, 'login.html')
+
 def updateInfo(request):
     if request.user.is_authenticated:
         if request.method == 'POST':
@@ -28,10 +47,10 @@ def updateInfo(request):
                 user.save()                
             except:
                 print('Done')
-                return HttpResponse('<h2>Something went wrong</h2>')
+                return render(request, 'errorPage.html')
             return HttpResponse('<h2>Update Done Succesfully</h2>')
         else:
-            return HttpResponse('<h2>Something went wrong</h2>')
+            return render(request, 'errorPage.html')
     else:
         return render(request, 'login.html')
 
@@ -44,10 +63,10 @@ def updatePhone(request):
             try:
                 user.save()
             except:
-                return HttpResponse('<h2>Something went wrong</h2>')
+                return render(request, 'errorPage.html')
             return HttpResponse('<h2>Update Done Succesfully</h2>')
         else:
-            return HttpResponse('<h2>Something went wrong</h2>')
+            return render(request, 'errorPage.html')
     else:
         return render(request, 'login.html')
 
@@ -60,10 +79,10 @@ def updateEmail(request):
             try:
                 user.save()
             except:
-                return HttpResponse('<h2>Something went wrong</h2>')
+                return render(request, 'errorPage.html')
             return HttpResponse('<h2>Update Done Succesfully</h2>')
         else:
-            return HttpResponse('<h2>Something went wrong</h2>')
+            return render(request, 'errorPage.html')
     else:
         return render(request, 'login.html') 
 
@@ -76,10 +95,10 @@ def updateAddress(request):
             try:
                 user.save()
             except:
-                return HttpResponse('<h2>Something went wrong</h2>')
+                return render(request, 'errorPage.html')
             return HttpResponse('<h2>Update Done Succesfully</h2>')
         else:
-            return HttpResponse('<h2>Something went wrong</h2>')
+            return render(request, 'errorPage.html')
     else:
         return render(request, 'login.html')   
 
@@ -118,10 +137,10 @@ def editProfile(request):
             try:
                 user.save()
             except:
-                return HttpResponse('<h2>Something went wrong</h2>')
+                return render(request, 'errorPage.html')
             return HttpResponse('<h2>Update Done Succesfully</h2>')
         else:
-            return HttpResponse('<h2>Something went wrong</h2>')
+            return render(request, 'errorPage.html')
     else:
         return render(request, 'login.html')    
 
@@ -134,41 +153,73 @@ def loginRender(request):
     return render(request, 'login.html')
 
 def loginAuthenticate(request):
-    username = request.POST['username']
-    password = request.POST['password']
-    user = authenticate(request, username=username, password=password)
-    if user is not None:
-        print('Logined')
-        login(request, user)
-        return render(request, 'userprofile.html', {'userData':'Logged In'})
+    if request.method == 'POST':
+        username = request.POST['username']
+        password = request.POST['password']
+        user = authenticate(request, username=username, password=password)
+        if user is not None:
+            print('Logined')
+            login(request, user)
+            return render(request, 'userprofile.html', {'userData':'Logged In'})
+        else:
+            return render(request, 'test.html', {'userData':'Not logged In'})
     else:
-        return render(request, 'test.html', {'userData':'Not logged In'})
+        return render(request, 'errorPage.html')
 
 def register(request):
     return render(request, 'register.html')
 
 def registerRender(request):
-    username = request.POST['username']
-    firstName = request.POST['firstName']
-    lastName = request.POST['lastName']
-    email = request.POST['email']
-    password = request.POST['password']
-    phone = request.POST['phone']
+    if request.method == 'POST':
+        username = request.POST['username']
+        firstName = request.POST['firstName']
+        lastName = request.POST['lastName']
+        email = request.POST['email']
+        password = request.POST['password']
+        phone = request.POST['phone']
 
-    if firstName is not None and lastName is not None and email is not None and password is not None:
-        if User.objects.filter(username = username).exists():
-            return render(request, 'test.html', {'userData':'Username Already Taken'})
-        elif User.objects.filter(email = email).exists():
-            return render(request, 'test.html', {'userData':'Email Already Taken'})
+        if firstName is not None and lastName is not None and email is not None and password is not None:
+            if User.objects.filter(username = username).exists():
+                return render(request, 'test.html', {'userData':'Username Already Taken'})
+            elif User.objects.filter(email = email).exists():
+                return render(request, 'test.html', {'userData':'Email Already Taken'})
+            else:
+                user = User.objects.create_user(
+                    username = username, 
+                    password = password,
+                    email = email,
+                    first_name = firstName,
+                    last_name = lastName)
+                
+                try:
+                    profile = Profile.objects.create(
+                        profileImage = 'blankProfile.jpg',
+                        motive = 'Your Motive',
+                        dob = '1998-10-22',
+                        age = 0,
+                        website = 'YourWebsite@company.com',
+                        degree = 'Your Degree',
+                        freelance = False,
+                        about = 'About Yourself',
+                        user = user,
+                        phone = phone,
+                        designation = 'Your Designation',
+                        city = 'Your City',
+                        address = 'Your Address',
+                        email = 'YourEmail.com',
+                        twitter = 'YourTwitter.com',
+                        facebook = 'YourFacebook.com',
+                        instagram = 'YourInstagram.com',
+                        skype = 'YourSkype.com',
+                        linkedin = 'YourLinkedIn.com' 
+                    )
+                except:
+                    return HttpResponse("Something went wrong!")
+                user.save()
+                profile.save()
+                login(request, user)
+                return render(request, 'userprofile.html')
         else:
-            user = User.objects.create_user(
-                username = username, 
-                password = password,
-                email = email,
-                first_name = firstName,
-                last_name = lastName)
-            
-            user.save()
-            return render(request, 'userprofile.html')
+            print('Enter Data Properly')
     else:
-        print('Enter Data Properly')
+        return render(request, 'errorPage.html')
