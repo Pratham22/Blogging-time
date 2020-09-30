@@ -1,2 +1,1 @@
-# Bloging-time
- Bloging webiste
+Welcome to my blog.
